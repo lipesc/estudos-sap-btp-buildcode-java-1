@@ -5,7 +5,10 @@
   "license": "ISC",
   "repository": "<Add your repository here>",
   "devDependencies": {
+    "@cap-js/sqlite": "^2.2.0",
     "@sap/cds-dk": "^9.5.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@sap/low-code-event-handler": "^1.2.5"
+  }
 }

@@ -2,33 +2,218 @@
   controllerName="com.estudos.buildcode.java1.ui.controller.Main"
   xmlns:mvc="sap.ui.core.mvc"
   xmlns="sap.m"
+  xmlns:uxap="sap.uxap"
   displayBlock="true"
 >
-  <App>
-    <Page title="Customers">
-      <content>
-        <Table id="customersTable" items="{customers>/items}">
-          <headerToolbar>
+  <App id="appNav">
+    <pages>
+      <Page id="homePage" title="Home">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Title text="My Home" />
+            </contentLeft>
+            <contentRight>
+              <Select id="shellNavHome" change="onShellNavChange" width="12rem" selectedKey="home">
+                <items>
+                  <core:Item key="home" text="Home" xmlns:core="sap.ui.core" />
+                  <core:Item key="purchases" text="Purchases" xmlns:core="sap.ui.core" />
+                  <core:Item key="customers" text="Customers" xmlns:core="sap.ui.core" />
+                  <core:Item key="redemptions" text="Redemptions" xmlns:core="sap.ui.core" />
+                </items>
+              </Select>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <VBox class="sapUiMediumMargin">
+            <Title level="H2" text="Launchpad" class="sapUiSmallMarginBottom" />
+            <HBox renderType="Bare" wrap="Wrap" class="sapUiSmallMarginTop">
+              <GenericTile header="Customers" subheader="Manage Customers" press="onOpenCustomers" class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="5" />
+                    </content>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+              <GenericTile header="Purchases" subheader="Manage Purchases" press="onOpenPurchases" class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="5" />
+                    </content>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+              <GenericTile header="Redemptions" subheader="Manage Redemptions" press="onOpenRedemptions" class="sapUiTinyMarginEnd sapUiTinyMarginBottom">
+                <tileContent>
+                  <TileContent>
+                    <content>
+                      <NumericContent value="5" />
+                    </content>
+                  </TileContent>
+                </tileContent>
+              </GenericTile>
+            </HBox>
+          </VBox>
+        </content>
+      </Page>
+
+      <Page id="purchasesPage" title="Purchases">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Title text="Purchases" />
+            </contentLeft>
+            <contentRight>
+              <Select id="shellNavPurchases" change="onShellNavChange" width="12rem" selectedKey="purchases">
+                <items>
+                  <core:Item key="home" text="Home" xmlns:core="sap.ui.core" />
+                  <core:Item key="purchases" text="Purchases" xmlns:core="sap.ui.core" />
+                  <core:Item key="customers" text="Customers" xmlns:core="sap.ui.core" />
+                  <core:Item key="redemptions" text="Redemptions" xmlns:core="sap.ui.core" />
+                </items>
+              </Select>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <VBox class="sapUiMediumMargin">
             <Toolbar>
-              <Title text="Customer List" />
+              <Title text="Filter Bar" />
+              <ToolbarSpacer />
+              <Button text="Go" type="Emphasized" press="onGoPurchases" />
             </Toolbar>
-          </headerToolbar>
-          <columns>
-            <Column><Text text="Customer Number" /></Column>
-            <Column><Text text="Email" /></Column>
-            <Column><Text text="Reward Points" /></Column>
-          </columns>
-          <items>
-            <ColumnListItem>
-              <cells>
-                <Text text="{customers>customerNumber}" />
-                <Text text="{customers>email}" />
-                <Text text="{customers>totalRewardPoints}" />
-              </cells>
-            </ColumnListItem>
-          </items>
-        </Table>
-      </content>
-    </Page>
+            <HBox class="sapUiSmallMarginTop sapUiSmallMarginBottom" wrap="Wrap">
+              <Label text="Customer Number" class="sapUiTinyMarginEnd" />
+              <Input id="customerFilterInput" width="14rem" placeholder="Optional filter" />
+            </HBox>
+            <Table id="purchasesTable" items="{purchases>/items}" noDataText="Let's get some results. Click Go.">
+              <headerToolbar>
+                <Toolbar>
+                  <Title text="Purchase List" />
+                  <ToolbarSpacer />
+                  <Button text="Create" type="Emphasized" press="onCreatePurchase" />
+                </Toolbar>
+              </headerToolbar>
+              <columns>
+                <Column><Text text="Purchase Value" /></Column>
+                <Column><Text text="Reward Points" /></Column>
+                <Column><Text text="Customer" /></Column>
+                <Column><Text text="Selected Product" /></Column>
+              </columns>
+              <items>
+                <ColumnListItem>
+                  <cells>
+                    <Text text="{purchases>purchaseValue}" />
+                    <Text text="{purchases>rewardPoints}" />
+                    <Text text="{purchases>customerName}" />
+                    <Text text="{purchases>productName}" />
+                  </cells>
+                </ColumnListItem>
+              </items>
+            </Table>
+          </VBox>
+        </content>
+      </Page>
+
+      <Page id="createPurchasePage" showFooter="true" title="Create Purchase">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Title text="Create Purchase" />
+            </contentLeft>
+            <contentRight>
+              <Select id="shellNavCreate" change="onShellNavChange" width="12rem" selectedKey="purchases">
+                <items>
+                  <core:Item key="home" text="Home" xmlns:core="sap.ui.core" />
+                  <core:Item key="purchases" text="Purchases" xmlns:core="sap.ui.core" />
+                  <core:Item key="customers" text="Customers" xmlns:core="sap.ui.core" />
+                  <core:Item key="redemptions" text="Redemptions" xmlns:core="sap.ui.core" />
+                </items>
+              </Select>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <uxap:ObjectPageLayout id="purchaseObjectPage" showHeaderContent="false">
+            <uxap:sections>
+              <uxap:ObjectPageSection title="General Information">
+                <uxap:subSections>
+                  <uxap:ObjectPageSubSection>
+                    <uxap:blocks>
+                      <VBox class="sapUiMediumMargin">
+                        <Label text="Purchase Value" />
+                        <Input id="purchaseValueInput" type="Number" placeholder="e.g. 1200" />
+                        <Label text="Customer" class="sapUiSmallMarginTop" />
+                        <Select id="customerSelect" items="{customers>/items}">
+                          <items>
+                            <core:Item key="{customers>ID}" text="{customers>name}" xmlns:core="sap.ui.core" />
+                          </items>
+                        </Select>
+                        <Label text="Selected Product" class="sapUiSmallMarginTop" />
+                        <Select id="productSelect" items="{products>/items}">
+                          <items>
+                            <core:Item key="{products>ID}" text="{products>name}" xmlns:core="sap.ui.core" />
+                          </items>
+                        </Select>
+                        <Label text="Reward Points (auto)" class="sapUiSmallMarginTop" />
+                        <Input id="rewardPointsInput" editable="false" />
+                      </VBox>
+                    </uxap:blocks>
+                  </uxap:ObjectPageSubSection>
+                </uxap:subSections>
+              </uxap:ObjectPageSection>
+            </uxap:sections>
+          </uxap:ObjectPageLayout>
+        </content>
+        <footer>
+          <Toolbar>
+            <ToolbarSpacer />
+            <Button text="Create" type="Emphasized" press="onSavePurchase" />
+          </Toolbar>
+        </footer>
+      </Page>
+
+      <Page id="customersPage" title="Customers">
+        <customHeader>
+          <Bar>
+            <contentLeft>
+              <Title text="Customers" />
+            </contentLeft>
+            <contentRight>
+              <Select id="shellNavCustomers" change="onShellNavChange" width="12rem" selectedKey="customers">
+                <items>
+                  <core:Item key="home" text="Home" xmlns:core="sap.ui.core" />
+                  <core:Item key="purchases" text="Purchases" xmlns:core="sap.ui.core" />
+                  <core:Item key="customers" text="Customers" xmlns:core="sap.ui.core" />
+                  <core:Item key="redemptions" text="Redemptions" xmlns:core="sap.ui.core" />
+                </items>
+              </Select>
+            </contentRight>
+          </Bar>
+        </customHeader>
+        <content>
+          <Table id="customersTable" items="{customers>/items}" class="sapUiMediumMargin">
+            <columns>
+              <Column><Text text="Customer Number" /></Column>
+              <Column><Text text="Email" /></Column>
+              <Column><Text text="Reward Points" /></Column>
+            </columns>
+            <items>
+              <ColumnListItem>
+                <cells>
+                  <Text text="{customers>customerNumber}" />
+                  <Text text="{customers>email}" />
+                  <Text text="{customers>totalRewardPoints}" />
+                </cells>
+              </ColumnListItem>
+            </items>
+          </Table>
+        </content>
+      </Page>
+    </pages>
   </App>
 </mvc:View>

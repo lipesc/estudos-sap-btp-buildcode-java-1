@@ -9,7 +9,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/service/estudos_buildcode_java_1_cds/",
+        "uri": "/odata/v4/service/estudos_buildcode_java_1_cds/",
         "type": "OData",
         "settings": {
           "odataVersion": "4.0"
@@ -35,7 +35,8 @@
       "minUI5Version": "1.120.0",
       "libs": {
         "sap.m": {},
-        "sap.ui.core": {}
+        "sap.ui.core": {},
+        "sap.uxap": {}
       }
     },
     "models": {

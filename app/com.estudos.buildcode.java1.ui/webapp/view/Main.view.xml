@@ -7,7 +7,7 @@
   <App>
     <Page title="Customers">
       <content>
-        <Table id="customersTable" items="{/Customers}">
+        <Table id="customersTable" items="{customers>/items}">
           <headerToolbar>
             <Toolbar>
               <Title text="Customer List" />
@@ -21,9 +21,9 @@
           <items>
             <ColumnListItem>
               <cells>
-                <Text text="{customerNumber}" />
-                <Text text="{email}" />
-                <Text text="{totalRewardPoints}" />
+                <Text text="{customers>customerNumber}" />
+                <Text text="{customers>email}" />
+                <Text text="{customers>totalRewardPoints}" />
               </cells>
             </ColumnListItem>
           </items>

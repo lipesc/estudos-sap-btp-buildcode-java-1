@@ -6,9 +6,9 @@ entity Customers : cuid {
   name: String(100);
   email: String(100);
   customerNumber: Integer @mandatory;
-  totalPurchaseValue: Integer;
-  totalRewardPoints: Integer;
-  totalRedeemedRewardPoints: Integer;
+  totalPurchaseValue: Decimal(15,2);
+  totalRewardPoints: Decimal(15,2);
+  totalRedeemedRewardPoints: Decimal(15,2);
   purchases: Association to many Purchases on purchases.customer = $self;
   redemptions: Association to many Redemptions on redemptions.customer = $self;
 }
@@ -21,14 +21,14 @@ entity Products : cuid {
 }
 
 entity Purchases : cuid {
-  purchaseValue: Integer;
-  rewardPoints: Integer;
+  purchaseValue: Decimal(15,2);
+  rewardPoints: Decimal(15,2);
   customer: Association to Customers;
   selectedProduct: Association to Products;
 }
 
 entity Redemptions : cuid {
-  redeemedAmount: Integer;
+  redeemedAmount: Decimal(15,2);
   customer: Association to Customers;
 }
 

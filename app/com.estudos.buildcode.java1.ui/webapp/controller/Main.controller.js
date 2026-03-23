@@ -123,6 +123,10 @@ sap.ui.define([
 
       const nPurchaseValue = Number(sPurchaseValue);
       const nRewardPoints = Number((nPurchaseValue * 0.1).toFixed(2));
+      const aCustomers = this.getView().getModel("customers").getProperty("/items") || [];
+      const oCurrentCustomer = aCustomers.find(function (oCustomer) {
+        return oCustomer.ID === sCustomerId;
+      });
 
       const oPayload = {
         purchaseValue: nPurchaseValue,
@@ -144,6 +148,25 @@ sap.ui.define([
         if (!oCreateResponse.ok) {
           MessageToast.show(`Create failed (${oCreateResponse.status}).`);
           return;
+        }
+
+        if (oCurrentCustomer) {
+          const nCurrentPurchaseValue = Number(oCurrentCustomer.totalPurchaseValue || 0);
+          const nCurrentRewardPoints = Number(oCurrentCustomer.totalRewardPoints || 0);
+
+          const oCustomerPatch = {
+            totalPurchaseValue: Number((nCurrentPurchaseValue + nPurchaseValue).toFixed(2)),
+            totalRewardPoints: Number((nCurrentRewardPoints + nRewardPoints).toFixed(2))
+          };
+
+          await fetch(`${this._serviceBase}/Customers(${sCustomerId})`, {
+            method: "PATCH",
+            headers: {
+              ...this._authHeaders,
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(oCustomerPatch)
+          });
         }
       } catch (e) {
         MessageToast.show("Create failed. Please try again.");

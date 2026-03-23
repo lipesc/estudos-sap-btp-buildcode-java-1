@@ -1,0 +1,34 @@
+<mvc:View
+  controllerName="com.estudos.buildcode.java1.ui.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  displayBlock="true"
+>
+  <App>
+    <Page title="Customers">
+      <content>
+        <Table id="customersTable" items="{/Customers}">
+          <headerToolbar>
+            <Toolbar>
+              <Title text="Customer List" />
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column><Text text="Customer Number" /></Column>
+            <Column><Text text="Email" /></Column>
+            <Column><Text text="Reward Points" /></Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Text text="{customerNumber}" />
+                <Text text="{email}" />
+                <Text text="{totalRewardPoints}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </content>
+    </Page>
+  </App>
+</mvc:View>

@@ -9,6 +9,7 @@
     "@sap/cds-dk": "^9.5.0"
   },
   "dependencies": {
-    "@sap/low-code-event-handler": "^1.2.5"
+    "@sap/low-code-event-handler": "^1.2.5",
+    "accepts": "^2.0.0"
   }
 }

@@ -1,7 +1,7 @@
 using { estudos_buildcode_java_1_cds as my } from '../db/schema.cds';
 
 @path: '/service/estudos_buildcode_java_1_cds'
-@requires: 'authenticated-user'
+@requires: 'any'
 service estudos_buildcode_java_1_cdsSrv {
   @odata.draft.enabled
   entity Customers as projection on my.Customers;
